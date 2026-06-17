@@ -14,7 +14,7 @@ class ReportsController < ApplicationController
       {title: "Rooms not Checked during Last Days", url: not_checked_rooms_report_reports_path, description: "This report shows information on Rooms that were not checked during last days" },
       {title: "Common Attribute States", url: common_attribute_states_report_reports_path, description: "This report shows the responses to the Common Questions in the Rover form" },
       {title: "Specific Attribute States", url: specific_attribute_states_report_reports_path, description: "This report shows the responses to the Specific Questions in the Rover form" },
-      {title: "Resource States", url: resource_states_report_reports_path, description: "This report shows the responses to the Resource Questions in the Rover form" },
+      # {title: "Resource States", url: resource_states_report_reports_path, description: "This report shows the responses to the Resource Questions in the Rover form" },
     ]
   end
 

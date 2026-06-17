@@ -30,13 +30,6 @@
     <%= render 'attributes_list', attributes: @room.active_specific_attributes %>
   </div>
 
-  <div class="w-75">
-    <div class="d-flex flex-row align-items-center justify-content-between">
-      <h2>Resources</h2>
-    </div>
-    <%= render 'resources_list', resources: @room.active_resources %>
-  </div>
-
   <% if is_admin? %>
     <div class="w-75">
       <h2>Notes:</h2>
