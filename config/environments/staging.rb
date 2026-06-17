@@ -63,7 +63,7 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "art_survey_production"
 
-  host = 'https://spaceready-staging.lsa.umich.edu/'
+  host = 'https://moversclassrooms-staging.lsa.umich.edu/'
   config.action_mailer.default_url_options = { host: host }
   config.action_mailer.perform_caching = false
   config.action_mailer.raise_delivery_errors = true
