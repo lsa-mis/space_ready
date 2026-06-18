@@ -56,9 +56,10 @@
 
                       <input type="checkbox" class="btn-check" name="btnradio" id="<%= (index + 1) %>specific" autocomplete="off" data-bs-toggle="collapse" href="#spec-answer-<%=(index + 1) %>" aria-expanded="false" aria-controls="spec-answer-<%=(index + 1) %>">
                       <label class="btn btn-outline-primary" for="<%= (index + 1) %>specific">Specific Questions</label>
-
+<!--
                       <input type="checkbox" class="btn-check" name="btnradio" id="<%= (index + 1) %>resource" autocomplete="off" data-bs-toggle="collapse" href="#res-answer-<%=(index + 1) %>" aria-expanded="false" aria-controls="res-answer-<%=(index + 1) %>">
                       <label class="btn btn-outline-primary" for="<%= (index + 1) %>resource">Resources</label>
+-->
                     </div>
                     <div class="collapse multi-collapse" id="ticket-list-<%=(index + 1) %>">
                       <h3>Room Issues</h3>
@@ -150,9 +151,9 @@
                         </tbody>
                         </table>
                     </div>
-
+<!--
                     <div class="collapse multi-collapse" id="res-answer-<%=(index + 1) %>">
-                      <h3>Resources</h3>
+                      <h3>Resources hell</h3>
                       <table class="table text-center">
                         <thead class="table-group-divider">
                           <tr>
@@ -176,6 +177,7 @@
                         </tbody>
                       </table>
                     </div>
+-->
                   </fieldset>
                 <% else %>
                   <div class="alert alert-danger" role="alert">
