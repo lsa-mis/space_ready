@@ -1,5 +1,5 @@
 # LSA Movers Classrooms
-![](https://img.shields.io/badge/Ruby%20Version-3.3.6-red) ![](https://img.shields.io/badge/Rails%20Version-7.1.3-red) ![](https://img.shields.io/badge/Postgresql%20Version-14.10-red)
+![](https://img.shields.io/badge/Ruby%20Version-4.0.1-red) ![](https://img.shields.io/badge/Rails%20Version-8.1.3-red) ![](https://img.shields.io/badge/Postgresql%20Version-14.10-red)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 The finished application allows admins to set up buildings and rooms for ROVERs to check, monitor rooms status, run reports, and keep rooms’ resources up to date. ROVERs should be able to log in on phones, pick rooms, fill out the rooms’ form, and create TDX tickets for any problems. 

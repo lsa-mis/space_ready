@@ -47,7 +47,6 @@ Rails.application.routes.draw do
   resources :rooms do
     resources :specific_attributes, module: :rooms, except: [:show]
     resources :room_states, module: :rooms, except: [:destroy]
-    resources :room_tickets, module: :rooms, only: [:send_email_for_tdx_ticket]
   end
   post 'archive_room/:id', to: 'rooms#archive', as: :archive_room
   post 'unarchive_room/:id', to: 'rooms#unarchive', as: :unarchive_room
