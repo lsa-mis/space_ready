@@ -50,6 +50,8 @@ Rails.application.routes.draw do
   end
   post 'archive_room/:id', to: 'rooms#archive', as: :archive_room
   post 'unarchive_room/:id', to: 'rooms#unarchive', as: :unarchive_room
+  match 'upload_images/:room_state_id/:room_id', to: 'rooms#upload_images', as: :upload_room_images, via: [:get, :post]
+  delete 'rooms/:room_id/images/:image_id', to: 'rooms#delete_image', as: :delete_room_image
   resources :notes, :except => [:index]
   post 'archive_specific_attribute/:room_id/:id', to: 'rooms/specific_attributes#archive', as: :archive_specific_attribute
   post 'unarchive_specific_attribute/:room_id/:id', to: 'rooms/specific_attributes#unarchive', as: :unarchive_specific_attribute
