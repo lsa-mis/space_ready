@@ -82,7 +82,8 @@ class RoomsController < ApplicationController
 
   def upload_images
     @room = Room.find(params[:room_id])
-    @room_state = RoomState.find(params[:room_state_id])
+    @room_state = @room.room_states.find(params[:room_state_id])
+    @upload_images_announcement = Announcement.find_by(location: "upload_images_form")
     authorize @room
 
     return unless request.post?
