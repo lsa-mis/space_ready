@@ -111,7 +111,7 @@ class RoomsController < ApplicationController
     @room = Room.find(params[:room_id])
     authorize @room, :delete_image?
 
-    image = @room.images.find(params[:image_id])
+    image = @room.images_attachments.find(params[:image_id])
     image.purge
 
     respond_to do |format|
