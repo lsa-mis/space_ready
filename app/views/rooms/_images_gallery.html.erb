@@ -1,9 +1,10 @@
 <%= turbo_frame_tag dom_id(room, :images_gallery) do %>
   <h2 class="h4 mb-3">Room Images</h2>
+  <% persisted_images = room.images.select { |image| image.persisted? && image.blob.persisted? } %>
 
-  <% if room.images.attached? %>
+  <% if persisted_images.any? %>
     <div class="row g-3 mb-4">
-      <% room.images.each do |image| %>
+      <% persisted_images.each do |image| %>
         <div class="col-6 col-md-4 col-lg-3">
           <%= link_to url_for(image), target: "_blank", rel: "noopener" do %>
             <%= image_tag image,

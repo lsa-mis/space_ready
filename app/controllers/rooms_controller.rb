@@ -89,13 +89,20 @@ class RoomsController < ApplicationController
     return unless request.post?
 
     files = params.dig(:room, :images)
-
-    if files.blank?
+    unless files.present?
       flash.now[:alert] = "Please select at least one image to upload."
+      render :upload_images, status: :unprocessable_entity
       return
     end
 
-    @room.images.attach(files)
+    attached = @room.images.attach(files)
+     if @room.invalid?
+       attached&.each(&:purge)
+       flash.now[:alert] = @room.errors.full_messages.to_sentence
+       @room = Room.find(params[:room_id])
+       render :upload_images, status: :unprocessable_entity
+       return
+     end
 
     redirect_to upload_room_images_path(room_state_id: @room_state.id, room_id: @room.id), notice: "Images uploaded successfully."
   end
