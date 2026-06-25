@@ -1,0 +1,63 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><%= link_to "Zones", zones_rover_navigation_path, class: 'link_to' %></li>
+    <li class="breadcrumb-item"><%= link_to "Buildings", buildings_rover_navigation_path(zone_id: @room.floor.building.zone.id), class: 'link_to' %></li>
+    <li class="breadcrumb-item"><%= link_to "Rooms", rooms_rover_navigation_path(floor_id: @room.floor.id), class: 'link_to' %></li>
+    <li class="breadcrumb-item"><%= link_to "Begin Check", edit_room_room_state_path(@room, RoomStatus.new(@room).room_state_today.id), class: 'link_to' %></li>
+    <% if CommonAttribute.active.present?  %>
+      <li class="breadcrumb-item"><%= link_to "Common Questions", edit_common_attribute_state_path(id: @room_state.id, room_state_id: @room_state.id), class: 'link_to' %></li>
+    <% end %>
+    <% if @room.active_specific_attributes.present? %>
+      <li class="breadcrumb-item"><%= link_to "Specific Questions", edit_specific_attribute_state_path(id: @room_state.id, room_state_id: @room_state.id), class: 'link_to' %></li>
+    <% end %>
+    <li class="breadcrumb-item active" aria-current="page">Images</li>
+  </ol>
+</nav>
+
+<h1>Upload Images</h1>
+
+<p class="h2-title"><%= @room.floor.building.zone ? "#{@room.floor.building.zone.name}" : ''  %></p>
+<p class="h2-title"><%= @room.floor.building.name %> (Floor <%= @room.floor.name %>)</p>
+<p class="h2-title"><%= "Room: #{@room.room_number}" %></p>
+
+<div data-controller='hideelement'>
+  <a class="link_to mb-1 d-none d-md-none" data-hideelement-target="more_button" data-action="hideelement#showElement">
+    Show Announcement
+    <i class="bi bi-caret-down-fill"></i>
+  </a>
+  <a class="link_to mb-1 d-block d-md-none" data-hideelement-target="less_button" data-action="hideelement#hideElement">
+    Hide Announcement
+    <i class="bi bi-caret-up-fill"></i>
+  </a>
+  <div class="d-block d-md-block" data-hideelement-target="hide_section">
+    <% if @upload_images_announcement&.content.present? %>
+      <div class="bg-accordion p-2 mb-3">
+        <%= @upload_images_announcement.content %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= render 'rover_navigations/form_progress_bar', room: @room %>
+<%= render 'shared/tdxtickets' %>
+
+<div class="card p-3 mb-4">
+  <%= form_with model: @room,
+                url: upload_room_images_path(room_state_id: @room_state.id, room_id: @room.id),
+                method: :post,
+                local: true,
+                multipart: true do |f| %>
+    <div class="mb-3">
+      <%= f.label :images, "Select Images", class: "form-label" %>
+      <%= f.file_field :images, multiple: true, accept: "image/*", class: "form-control" %>
+    </div>
+
+    <%= f.submit "Upload Images", class: "btn btn-primary" %>
+  <% end %>
+</div>
+
+<%= render 'images_gallery', room: @room %>
+
+<div class="mt-4 d-flex justify-content-end">
+  <%= link_to "Next", confirmation_rover_navigation_path(room_id: @room.id), class: "btn btn-success" %>
+</div>
