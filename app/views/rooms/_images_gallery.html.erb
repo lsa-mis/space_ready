@@ -1,6 +1,6 @@
 <%= turbo_frame_tag dom_id(room, :images_gallery) do %>
   <h2 class="h4 mb-3">Room Images</h2>
-  <% persisted_images = room.images.select { |image| image.persisted? && image.blob.persisted? } %>
+  <% persisted_images = room.images.attachments.includes(:blob).select { |image| image.persisted? && image.blob&.persisted? } %>
 
   <% if persisted_images.any? %>
     <div class="row g-3 mb-4">
