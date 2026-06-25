@@ -11,11 +11,16 @@
                           alt: "Room image #{image.filename.base}" %>
           <% end %>
 
-          <%= button_to "Delete",
-                        delete_room_image_path(room_id: room.id, image_id: image.id),
-                        method: :delete,
-                        class: "btn btn-sm btn-outline-danger w-100",
-                        form: { data: { turbo_confirm: "Delete this image?" } } %>
+          <p alertclass="body-sm-text pt-2">
+            Uploaded on <%= show_date_with_time(image.created_at) %>
+          </p>
+          <div>
+            <% if policy(Room).delete_image? %>
+              <%= link_to delete_room_image_path(room_id: room.id, image_id: image.id), class: "link_to", data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } do %>
+                Remove <i class="bi bi-trash-fill text-danger"></i>
+              <% end %>
+            <% end %>
+          </div>
         </div>
       <% end %>
     </div>
