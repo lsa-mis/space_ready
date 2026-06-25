@@ -8,7 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-locations = ['about_page', 'rovers_form', 'rovers_welcome_page', 'common_form', 'specific_form', 'resource_form'] #hardcoded locations
+locations = ['about_page', 'rovers_form', 'rovers_welcome_page', 'common_form', 'specific_form', 'resource_form', 'upload_images_form'] #hardcoded locations
 existing_locations = Announcement.all.pluck(:location)
 locations.each do |location|
   unless existing_locations.include?(location)

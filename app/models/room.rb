@@ -23,9 +23,11 @@ class Room < ApplicationRecord
   has_many :archived_resources, -> { archived }, class_name: 'Resource'
   has_many :room_states
   has_many :notes
+  has_many_attached :images
 
   validates :rmrecnbr, presence: true, uniqueness: true
   validates :room_number, :room_type, presence: true
+  validate :acceptable_image
 
   accepts_nested_attributes_for :specific_attributes
 
@@ -40,6 +42,25 @@ class Room < ApplicationRecord
 
   def room_state?
     RoomState.find_by(room_id: self).present?
+  end
+
+  def acceptable_image
+    return unless images.attached?
+
+    acceptable_types = ["image/jpg", 
+    "image/jpeg",
+    "image/png",
+    "image/heic"]
+    
+    images.each do |image|
+      unless image.blob.byte_size <= 10.megabyte
+        errors.add(:base, "the image is too big")
+      end
+
+      unless acceptable_types.include?(image.content_type)
+        errors.add(:base, "the image has incorrect file type")
+      end
+    end
   end
 
 end

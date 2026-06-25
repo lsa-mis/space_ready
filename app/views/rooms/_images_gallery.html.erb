@@ -1,0 +1,31 @@
+<%= turbo_frame_tag dom_id(room, :images_gallery) do %>
+  <h2 class="h4 mb-3">Room Images</h2>
+  <% persisted_images = room.images.attachments.includes(:blob).select { |image| image.persisted? && image.blob&.persisted? } %>
+
+  <% if persisted_images.any? %>
+    <div class="row g-3 mb-4">
+      <% persisted_images.each do |image| %>
+        <div class="col-6 col-md-4 col-lg-3">
+          <%= link_to url_for(image), target: "_blank", rel: "noopener" do %>
+            <%= image_tag image,
+                          class: "img-fluid rounded border mb-2",
+                          alt: "Room image #{image.filename.base}" %>
+          <% end %>
+
+          <p class="body-sm-text pt-2">
+            Uploaded on <%= show_date_with_time(image.created_at) %>
+          </p>
+          <div>
+            <% if policy(room).delete_image? %>
+              <%= link_to delete_room_image_path(room_id: room.id, image_id: image.id), class: "link_to", data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } do %>
+                Remove <i class="bi bi-trash-fill text-danger"></i>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>No images uploaded yet.</p>
+  <% end %>
+<% end %>

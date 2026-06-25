@@ -80,6 +80,55 @@ class RoomsController < ApplicationController
     end
   end
 
+  def upload_images
+    @room = Room.find(params[:room_id])
+    @room_state = @room.room_states.find(params[:room_state_id])
+    @upload_images_announcement = Announcement.find_by(location: "upload_images_form")
+    authorize @room
+
+    return unless request.post?
+
+    files = params.dig(:room, :images)
+    unless files.present?
+      flash.now[:alert] = "Please select at least one image to upload."
+      render :upload_images, status: :unprocessable_entity
+      return
+    end
+
+    attached = @room.images.attach(files)
+     if @room.invalid?
+       attached&.each(&:purge)
+       flash.now[:alert] = @room.errors.full_messages.to_sentence
+       @room = Room.find(params[:room_id])
+       render :upload_images, status: :unprocessable_entity
+       return
+     end
+
+    redirect_to upload_room_images_path(room_state_id: @room_state.id, room_id: @room.id), notice: "Images uploaded successfully."
+  end
+
+  def delete_image
+    @room = Room.find(params[:room_id])
+    authorize @room, :delete_image?
+
+    image = @room.images_attachments.find(params[:image_id])
+    image.purge
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(
+          helpers.dom_id(@room, :images_gallery),
+          partial: 'rooms/images_gallery',
+          locals: { room: @room }
+        )
+      end
+
+      format.html do
+        redirect_back fallback_location: room_path(@room), notice: 'Image deleted successfully.'
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_room

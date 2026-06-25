@@ -27,4 +27,12 @@ class RoomPolicy < ApplicationPolicy
     is_admin?
   end
 
+  def upload_images?
+    is_admin? || is_rover?
+  end
+
+  def delete_image?
+    is_admin? || is_rover?
+  end
+
 end
