@@ -23,7 +23,7 @@ class Room < ApplicationRecord
   has_many :archived_resources, -> { archived }, class_name: 'Resource'
   has_many :room_states
   has_many :notes
-  has_many :images
+  has_many_attached :images
 
   validates :rmrecnbr, presence: true, uniqueness: true
   validates :room_number, :room_type, presence: true
