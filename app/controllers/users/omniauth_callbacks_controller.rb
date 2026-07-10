@@ -44,7 +44,7 @@ def set_user
 
     if LdapLookup.is_member_of_group?(@user.uniqname, 'lsa-spaceready-developers')
       session[:role] = "developer"
-    elsif LdapLookup.is_member_of_group?(@user.uniqname, 'lsa-spaceready-admins')
+    elsif LdapLookup.is_member_of_group?(@user.uniqname, 'lsa-spaceready-facility-admins')
       session[:role] = "admin"
     elsif LdapLookup.is_member_of_group?(@user.uniqname, 'lsa-spaceready-admins-readonly')
       session[:role] = "readonly"
