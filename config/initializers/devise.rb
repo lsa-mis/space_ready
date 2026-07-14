@@ -13,6 +13,7 @@ Devise.setup do |config|
   consumer_service_url = Rails.application.credentials.dev_assertion_consumer_service_url
   entity_id = Rails.application.credentials.dev_entity_id
   idp_sso_service_url = Rails.application.credentials.dev_idp_sso_service_url
+  idp_logout_url = Rails.application.credentials.dev_idp_slo_target_url
   idp_entity_id = Rails.application.credentials.dev_idp_entity_id
   idp_cert = Rails.application.credentials.dig(:okta, :dev_idp_cert)
 
@@ -30,6 +31,9 @@ Devise.setup do |config|
     idp_cert = Rails.application.credentials.dig(:okta, :staging_idp_cert)
   end
 
+  service_provider_private_key = Rails.application.credentials.service_provider_private_key
+  service_provider_certificate = Rails.application.credentials.service_provider_certificate
+
   # if Rails.env.production?
   #   idp_login_url = Rails.application.credentials.production_idp_sso_target_url
   #   idp_logout_url = Rails.application.credentials.production_idp_slo_target_url
@@ -44,7 +48,11 @@ Devise.setup do |config|
     issuer: entity_id,
     idp_entity_id: idp_entity_id,
     idp_sso_service_url: idp_sso_service_url,
+    idp_logout_url: idp_logout_url,
     idp_cert: idp_cert,
+    private_key: service_provider_private_key,
+    certificate: service_provider_certificate,
+    security: {want_assertions_signed: true, want_assertions_encrypted: true},
     name_identifier_format: "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress",
     attribute_statements: {
       email: ['email', 'mail', 'User.Email'],
