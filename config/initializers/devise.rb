@@ -34,7 +34,7 @@ Devise.setup do |config|
     issuer: entity_id,
     idp_entity_id: idp_entity_id,
     idp_sso_service_url: idp_sso_service_url,
-    idp_logout_url: idp_logout_url,
+    idp_slo_service_url: idp_logout_url,
     idp_cert: idp_cert,
     private_key: service_provider_private_key,
     certificate: service_provider_certificate,
