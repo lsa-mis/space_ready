@@ -59,6 +59,8 @@ gem "pundit"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 2.0"
+# ImageProcessing::Vips requires the ruby-vips gem.
+gem "ruby-vips", require: false
 gem "chartkick"
 gem 'csv', '~> 3.3', '>= 3.3.5'
 gem 'ostruct', '~> 0.6.3'
